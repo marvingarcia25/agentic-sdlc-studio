@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agentic-sdlc-studio
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: agentic-sdlc-studio
+  template:
+    metadata:
+      labels:
+        app: agentic-sdlc-studio
+    spec:
+      containers:
+        - name: agentic-sdlc-studio
+          image: agentic-sdlc-studio:latest
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: agentic-sdlc-studio
+spec:
+  selector:
+    app: agentic-sdlc-studio
+  ports:
+    - port: 80
+      targetPort: 8080
+  type: ClusterIP

@@ -1,0 +1,22 @@
+@code {
+    [Parameter]
+    public IReadOnlyList<TranscriptLine> Lines { get; set; } = [];
+}
+
+<div class="transcript">
+    @foreach (var line in Lines)
+    {
+        <div class="transcript__row transcript__row--@line.Kind">
+            <div class="transcript__bubble">
+                <div class="transcript__author">
+                    @if (line.Kind == "agent")
+                    {
+                        <span class="transcript__glyph">🤖</span>
+                    }
+                    @line.Author
+                </div>
+                <div class="transcript__text">@line.Text</div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,60 @@
+@code {
+    [Parameter]
+    public IReadOnlyList<Artifact> Artifacts { get; set; } = [];
+
+    private int _active = 0;
+
+    protected override void OnParametersSet()
+    {
+        if (Artifacts.Count == 0)
+        {
+            _active = 0;
+            return;
+        }
+
+        _active = Math.Clamp(_active, 0, Artifacts.Count - 1);
+    }
+
+    private static string KindLabel(ArtifactKind kind) => kind switch
+    {
+        ArtifactKind.Markdown => "md",
+        ArtifactKind.CSharp => "C#",
+        ArtifactKind.Diff => "diff",
+        ArtifactKind.Yaml => "YAML",
+        ArtifactKind.Dockerfile => "Dockerfile",
+        ArtifactKind.Json => "JSON",
+        ArtifactKind.Bash => "bash",
+        ArtifactKind.Text => "text",
+        _ => "text"
+    };
+}
+
+@if (Artifacts.Count > 0)
+{
+    var active = Artifacts[_active];
+
+    <div class="artifacts">
+        @if (Artifacts.Count > 1)
+        {
+            <div class="artifacts__tabs" role="tablist">
+                @for (var i = 0; i < Artifacts.Count; i++)
+                {
+                    var index = i;
+                    <button type="button"
+                            class="artifacts__tab @(index == _active ? "artifacts__tab--active" : "")"
+                            @onclick="() => _active = index">
+                        @Artifacts[index].Title
+                    </button>
+                }
+            </div>
+        }
+
+        <div class="file-card">
+            <div class="file-card__header">
+                <span class="file-card__filename">@active.Filename</span>
+                <span class="file-card__badge">@KindLabel(active.Kind)</span>
+            </div>
+            <pre class="file-card__body"><code>@active.Content</code></pre>
+        </div>
+    </div>
+}

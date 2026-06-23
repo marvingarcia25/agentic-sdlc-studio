@@ -1,0 +1,65 @@
+@page "/"
+@inject JourneyState State
+@implements IDisposable
+
+<PageTitle>Agentic SDLC Studio</PageTitle>
+
+@{
+    var s = State.Current;
+}
+
+<article class="stage">
+    <header class="stage__header">
+        <div class="stage__heading">
+            <span class="stage__icon">@s.Icon</span>
+            <div>
+                <h1 class="stage__name">@s.Name</h1>
+                <p class="stage__tagline">@s.Tagline</p>
+            </div>
+        </div>
+        <span class="stage__step">Step @(State.CurrentIndex + 1) of @State.Stages.Count</span>
+    </header>
+
+    <div class="stage__agents">
+        <span class="stage__agents-label">Agents:</span>
+        @foreach (var agent in s.Agents)
+        {
+            <span class="chip">@agent</span>
+        }
+    </div>
+
+    <p class="stage__narrative">@s.Narrative</p>
+
+    <section class="stage__section">
+        <h2 class="stage__section-title">Transcript</h2>
+        <TranscriptView Lines="s.Transcript" />
+    </section>
+
+    <section class="stage__section">
+        <h2 class="stage__section-title">Artifacts</h2>
+        <ArtifactViewer Artifacts="s.Artifacts" />
+    </section>
+
+    <footer class="stage__actions">
+        <button type="button" class="btn btn--secondary" disabled="@State.IsFirst" @onclick="State.Back">
+            Back
+        </button>
+        <button type="button" class="btn btn--primary" @onclick="State.Advance">
+            @s.ApprovalPrompt
+        </button>
+    </footer>
+</article>
+
+@code {
+    protected override void OnInitialized()
+    {
+        State.Changed += OnChanged;
+    }
+
+    private void OnChanged() => InvokeAsync(StateHasChanged);
+
+    public void Dispose()
+    {
+        State.Changed -= OnChanged;
+    }
+}

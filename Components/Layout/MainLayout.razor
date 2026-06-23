@@ -1,0 +1,32 @@
+@inherits LayoutComponentBase
+@inject JourneyService Journey
+
+<div class="app-shell">
+    <header class="app-header">
+        <div class="app-header__brand">
+            <span class="app-header__name">Agentic SDLC Studio</span>
+            <span class="app-header__tagline">
+                What mature, agent-driven enterprise delivery actually looks like — one feature, end to end.
+            </span>
+        </div>
+        <div class="app-header__ticket" title="@Journey.FeatureTitle">
+            <span class="app-header__ticket-label">Ticket</span>
+            <span class="app-header__ticket-value">@Journey.FeatureTitle</span>
+        </div>
+    </header>
+
+    <div class="app-body">
+        <aside class="app-rail">
+            <ProgressRail />
+        </aside>
+        <main class="app-main">
+            @Body
+        </main>
+    </div>
+</div>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>

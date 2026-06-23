@@ -1,0 +1,48 @@
+@inject JourneyState State
+@implements IDisposable
+
+<nav class="rail" aria-label="Lifecycle stages">
+    <ol class="rail__list">
+        @for (var i = 0; i < State.Stages.Count; i++)
+        {
+            var index = i;
+            var stage = State.Stages[index];
+            var status = GetStatus(index);
+
+            <li class="rail__item rail__item--@status">
+                <button type="button" class="rail__button" @onclick="() => State.GoTo(index)">
+                    <span class="rail__marker">
+                        @if (status == "done")
+                        {
+                            <span class="rail__check">✓</span>
+                        }
+                        else
+                        {
+                            <span class="rail__icon">@stage.Icon</span>
+                        }
+                    </span>
+                    <span class="rail__label">@stage.Name</span>
+                </button>
+            </li>
+        }
+    </ol>
+</nav>
+
+@code {
+    protected override void OnInitialized()
+    {
+        State.Changed += OnChanged;
+    }
+
+    private void OnChanged() => InvokeAsync(StateHasChanged);
+
+    private string GetStatus(int index) =>
+        index < State.CurrentIndex ? "done" :
+        index == State.CurrentIndex ? "current" :
+        "upcoming";
+
+    public void Dispose()
+    {
+        State.Changed -= OnChanged;
+    }
+}

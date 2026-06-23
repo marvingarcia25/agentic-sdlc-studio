@@ -1,0 +1,642 @@
+/* ============================================================
+   Agentic SDLC Studio — control-room dark theme
+   ============================================================ */
+
+:root {
+    --bg: #0b0e14;
+    --bg-elevated: #11151d;
+    --bg-card: #141925;
+    --bg-card-hover: #181f2e;
+    --border: #232a38;
+    --border-soft: #1b212d;
+
+    --text: #e6e9f0;
+    --text-muted: #8b94a7;
+    --text-faint: #5b6478;
+
+    --accent: #5b8cff;
+    --accent-strong: #7aa2ff;
+    --accent-soft: rgba(91, 140, 255, 0.14);
+    --accent-glow: rgba(91, 140, 255, 0.35);
+
+    --violet: #9b7bff;
+    --green: #3ddc97;
+    --amber: #f0b429;
+
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.28);
+    --shadow-elevated: 0 2px 4px rgba(0, 0, 0, 0.5), 0 16px 40px rgba(0, 0, 0, 0.35);
+
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, "Cascadia Code", Consolas, "SFMono-Regular", Menlo, monospace;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, p {
+    margin: 0;
+}
+
+h1:focus {
+    outline: none;
+}
+
+button {
+    font-family: inherit;
+}
+
+/* ----------------------------------------------------------
+   App shell
+   ---------------------------------------------------------- */
+
+.app-shell {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.1rem 2rem;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-elevated);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.app-header__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+}
+
+.app-header__name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    background: linear-gradient(90deg, var(--accent-strong), var(--violet));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.app-header__tagline {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.app-header__ticket {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem 0.4rem 0.5rem;
+    flex-shrink: 0;
+    max-width: 46vw;
+}
+
+.app-header__ticket-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--accent-strong);
+    border-radius: 999px;
+    padding: 0.2rem 0.55rem;
+    flex-shrink: 0;
+}
+
+.app-header__ticket-value {
+    font-size: 0.82rem;
+    font-family: var(--font-mono);
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.app-body {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+
+.app-rail {
+    width: 260px;
+    flex-shrink: 0;
+    background: var(--bg-elevated);
+    border-right: 1px solid var(--border);
+    padding: 1.5rem 0;
+}
+
+.app-main {
+    flex: 1;
+    min-width: 0;
+    padding: 2rem 2.5rem 4rem;
+}
+
+/* ----------------------------------------------------------
+   Progress rail
+   ---------------------------------------------------------- */
+
+.rail__list {
+    list-style: none;
+    margin: 0;
+    padding: 0 0.75rem;
+    position: relative;
+}
+
+.rail__item {
+    position: relative;
+    padding-bottom: 0.35rem;
+}
+
+.rail__item:not(:last-child)::before {
+    content: "";
+    position: absolute;
+    left: 1.45rem;
+    top: 2.4rem;
+    bottom: -0.35rem;
+    width: 2px;
+    background: var(--border);
+}
+
+.rail__item--done:not(:last-child)::before {
+    background: var(--accent);
+}
+
+.rail__button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 0.6rem 0.6rem;
+    cursor: pointer;
+    text-align: left;
+    color: var(--text-muted);
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.rail__button:hover {
+    background: var(--bg-card-hover);
+    color: var(--text);
+}
+
+.rail__marker {
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+}
+
+.rail__item--done .rail__marker {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+    color: var(--accent-strong);
+}
+
+.rail__item--current .rail__marker {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-glow);
+}
+
+.rail__check {
+    font-weight: 700;
+}
+
+.rail__label {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.rail__item--current .rail__button {
+    color: var(--text);
+}
+
+.rail__item--current .rail__label {
+    font-weight: 700;
+}
+
+.rail__item--upcoming .rail__label {
+    color: var(--text-faint);
+}
+
+/* ----------------------------------------------------------
+   Stage page
+   ---------------------------------------------------------- */
+
+.stage {
+    max-width: 920px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+.stage__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.stage__heading {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.stage__icon {
+    font-size: 2.4rem;
+    line-height: 1;
+}
+
+.stage__name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.stage__tagline {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-top: 0.2rem;
+}
+
+.stage__step {
+    flex-shrink: 0;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem;
+    white-space: nowrap;
+}
+
+.stage__agents {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.stage__agents-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    border: 1px solid rgba(91, 140, 255, 0.3);
+    border-radius: 999px;
+    padding: 0.3rem 0.8rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.stage__narrative {
+    font-size: 1.02rem;
+    line-height: 1.7;
+    color: var(--text);
+}
+
+.stage__section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.stage__section-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+}
+
+/* ----------------------------------------------------------
+   Transcript
+   ---------------------------------------------------------- */
+
+.transcript {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+
+.transcript__row {
+    display: flex;
+}
+
+.transcript__bubble {
+    max-width: 80%;
+    border-radius: var(--radius-md);
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+}
+
+.transcript__author {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.25rem;
+    color: var(--text-muted);
+}
+
+.transcript__text {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--text);
+    white-space: pre-wrap;
+}
+
+.transcript__row--agent {
+    justify-content: flex-start;
+}
+
+.transcript__row--agent .transcript__bubble {
+    background: var(--accent-soft);
+    border-color: rgba(91, 140, 255, 0.28);
+}
+
+.transcript__row--agent .transcript__author {
+    color: var(--accent-strong);
+}
+
+.transcript__glyph {
+    font-size: 0.9rem;
+}
+
+.transcript__row--human {
+    justify-content: flex-end;
+}
+
+.transcript__row--human .transcript__bubble {
+    background: rgba(155, 123, 255, 0.12);
+    border-color: rgba(155, 123, 255, 0.3);
+}
+
+.transcript__row--human .transcript__author {
+    color: var(--violet);
+    justify-content: flex-end;
+}
+
+.transcript__row--system {
+    justify-content: center;
+}
+
+.transcript__row--system .transcript__bubble {
+    max-width: 90%;
+    background: var(--bg-elevated);
+    border-style: dashed;
+    text-align: center;
+}
+
+.transcript__row--system .transcript__author {
+    justify-content: center;
+    color: var(--text-faint);
+}
+
+.transcript__row--system .transcript__text {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+/* ----------------------------------------------------------
+   Artifact viewer
+   ---------------------------------------------------------- */
+
+.artifacts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.artifacts__tabs {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.artifacts__tab {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    border-radius: var(--radius-sm);
+    padding: 0.4rem 0.85rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.artifacts__tab:hover {
+    color: var(--text);
+    border-color: var(--text-faint);
+}
+
+.artifacts__tab--active {
+    background: var(--accent-soft);
+    color: var(--accent-strong);
+    border-color: var(--accent);
+}
+
+.file-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: #0a0d13;
+    box-shadow: var(--shadow-card);
+}
+
+.file-card__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.6rem 1rem;
+    background: var(--bg-elevated);
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.file-card__filename {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text);
+}
+
+.file-card__badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent-strong);
+    background: var(--accent-soft);
+    border: 1px solid rgba(91, 140, 255, 0.3);
+    border-radius: var(--radius-sm);
+    padding: 0.2rem 0.5rem;
+    flex-shrink: 0;
+}
+
+.file-card__body {
+    margin: 0;
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+    background: #0a0d13;
+}
+
+.file-card__body code {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: #d4dae6;
+    white-space: pre;
+}
+
+/* ----------------------------------------------------------
+   Buttons / approval gate
+   ---------------------------------------------------------- */
+
+.stage__actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+}
+
+.btn {
+    font-size: 0.92rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    padding: 0.7rem 1.4rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.15s ease;
+}
+
+.btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+.btn--secondary {
+    background: var(--bg-card);
+    border-color: var(--border);
+    color: var(--text-muted);
+}
+
+.btn--secondary:not(:disabled):hover {
+    color: var(--text);
+    border-color: var(--text-faint);
+}
+
+.btn--primary {
+    background: linear-gradient(135deg, var(--accent), var(--violet));
+    color: #ffffff;
+    box-shadow: 0 4px 16px var(--accent-glow);
+    flex: 1;
+    max-width: 460px;
+    text-align: center;
+}
+
+.btn--primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 22px var(--accent-glow);
+}
+
+.btn--primary:active {
+    transform: translateY(0);
+}
+
+/* ----------------------------------------------------------
+   Framework / error UI
+   ---------------------------------------------------------- */
+
+#blazor-error-ui {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: var(--amber);
+    color: #1a1305;
+    padding: 0.75rem 1.25rem;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
+}
+
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
+
+.blazor-error-boundary {
+    background: #3a1414;
+    border: 1px solid #b32121;
+    border-radius: var(--radius-sm);
+    padding: 1rem 1rem 1rem 1rem;
+    color: var(--text);
+}
+
+.blazor-error-boundary::after {
+    content: "An error has occurred.";
+}
