@@ -716,3 +716,188 @@ button {
 .blazor-error-boundary::after {
     content: "An error has occurred.";
 }
+
+/* ----------------------------------------------------------
+   Responsive — mobile / small screens
+   ---------------------------------------------------------- */
+
+@media (max-width: 820px) {
+    html, body {
+        font-size: 14px;
+    }
+
+    /* Header stacks vertically; nothing clipped */
+    .app-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.6rem;
+        padding: 0.85rem 1rem;
+    }
+
+    .app-header__tagline {
+        white-space: normal;
+    }
+
+    .app-header__ticket {
+        max-width: 100%;
+    }
+
+    .app-header__ticket-value {
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    /* Single column: rail becomes a horizontal band on top */
+    .app-body {
+        flex-direction: column;
+    }
+
+    .app-rail {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        padding: 0.4rem 0;
+    }
+
+    /* Progress stepper goes horizontal + scrollable */
+    .rail__list {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 0.35rem;
+        padding: 0.5rem 0.75rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .rail__item {
+        flex: 0 0 auto;
+        padding-bottom: 0;
+    }
+
+    .rail__item:not(:last-child)::before {
+        display: none; /* hide the vertical connector when horizontal */
+    }
+
+    .rail__button {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.3rem;
+        width: auto;
+        padding: 0.4rem 0.5rem;
+    }
+
+    .rail__label {
+        font-size: 0.7rem;
+        max-width: 5.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    /* Resources collapse to a compact horizontal chip row */
+    .rail-links {
+        margin-top: 0;
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 0.5rem;
+        padding: 0.25rem 0.75rem 0.5rem;
+        border-top: 1px dashed var(--border-soft);
+    }
+
+    .rail-links__label {
+        display: none;
+    }
+
+    .rail-link {
+        flex: 0 0 auto;
+    }
+
+    .rail-link:hover {
+        transform: none;
+    }
+
+    .rail-link__sub {
+        display: none; /* keep chips compact on mobile */
+    }
+
+    .rail-link__ext {
+        margin-left: 0.4rem;
+    }
+
+    /* Main content */
+    .app-main {
+        padding: 1.25rem 1rem 3rem;
+    }
+
+    /* Stage header stacks */
+    .stage {
+        gap: 1.25rem;
+    }
+
+    .stage__header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .stage__icon {
+        font-size: 2rem;
+    }
+
+    .stage__name {
+        font-size: 1.3rem;
+    }
+
+    .stage__step {
+        align-self: flex-start;
+    }
+
+    /* Transcript bubbles use more width on small screens */
+    .transcript__bubble {
+        max-width: 92%;
+    }
+
+    .transcript__row--system .transcript__bubble {
+        max-width: 100%;
+    }
+
+    /* Actions stack; approval gate on top, full width, big tap targets */
+    .stage__actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+        gap: 0.6rem;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 0.85rem 1.2rem;
+    }
+
+    .btn--primary {
+        flex: none;
+        max-width: none;
+    }
+}
+
+@media (max-width: 460px) {
+    .app-header__name {
+        font-size: 1.05rem;
+    }
+
+    .stage__name {
+        font-size: 1.2rem;
+    }
+
+    .stage__icon {
+        font-size: 1.7rem;
+    }
+
+    .rail__label {
+        max-width: 4.5rem;
+    }
+
+    .file-card__body code {
+        font-size: 0.8rem;
+    }
+}
