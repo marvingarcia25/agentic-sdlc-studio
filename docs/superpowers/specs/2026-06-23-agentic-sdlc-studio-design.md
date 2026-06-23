@@ -1,4 +1,4 @@
-# GoldenPath — AI-Driven Dev Lifecycle Showcase (Design)
+# Agentic SDLC Studio — AI-Driven Dev Lifecycle Showcase (Design)
 
 **Date:** 2026-06-23
 **Status:** Approved (design), pending implementation plan
@@ -31,7 +31,7 @@ artifacts look like real C#/Azure/AKS work product.
 | Depicted content stack | C# / Azure Functions, GitHub Actions, Docker, AKS |
 | Story | Add rate-limiting to an HTTP-triggered Azure Function |
 | Data source | Strongly-typed in-memory C# seed data (no DB, no external API) |
-| Repo scope | Git repo lives in `day29_GoldenPath/` only — never the `1000` root |
+| Repo scope | Git repo lives in `day29_AgenticSDLC/` only — never the `1000` root |
 
 ## Architecture
 
@@ -105,9 +105,9 @@ allows; not required for the core experience.
 
 ## Logistics
 
-- The git repo is initialized **inside `day29_GoldenPath/`** with its own
+- The git repo is initialized **inside `day29_AgenticSDLC/`** with its own
   `.gitignore`, never at the `1000` root — fixing the prior "repo swallowed the
   root folder" problem.
 - To root the Claude Code workspace here, relaunch Claude Code from inside
-  `day29_GoldenPath/` (`cd day29_GoldenPath && claude`); the session working
+  `day29_AgenticSDLC/` (`cd day29_AgenticSDLC && claude`); the session working
   directory cannot be changed mid-session.
