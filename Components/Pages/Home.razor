@@ -1,5 +1,6 @@
 @page "/"
 @inject JourneyState State
+@inject IJSRuntime JS
 @implements IDisposable
 
 <PageTitle>Agentic SDLC Studio</PageTitle>
@@ -51,12 +52,27 @@
 </article>
 
 @code {
+    private bool _scrollToTop;
+
     protected override void OnInitialized()
     {
         State.Changed += OnChanged;
     }
 
-    private void OnChanged() => InvokeAsync(StateHasChanged);
+    private void OnChanged()
+    {
+        _scrollToTop = true;
+        InvokeAsync(StateHasChanged);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_scrollToTop)
+        {
+            _scrollToTop = false;
+            await JS.InvokeVoidAsync("window.scrollTo", 0, 0);
+        }
+    }
 
     public void Dispose()
     {
